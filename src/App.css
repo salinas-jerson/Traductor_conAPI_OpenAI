@@ -1,0 +1,94 @@
+
+
+.custom-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background-color: #999999;
+  color: #686868;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+} 
+ 
+/* Estilos para el texto del botón */
+.button-text {
+  margin-right: 5px; /* Espacio entre el texto y el icono */
+}
+
+/* Estilos para el icono del botón */
+.icon {
+  font-size: 16px;
+}
+
+/* Estilos cuando el botón está en estado hover */
+.custom-button:hover {
+  background-color: #7c7db9;
+  box-shadow: 0 2px 4px #7c7db9;
+}
+
+/* Estilos cuando el botón está en estado activo (presionado) */
+.custom-button:active {
+  background-color: #5d5e8a;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+
+
+#status {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  top: 35%;
+  margin: 0 auto;
+  right: 35px;
+}
+
+#root {
+  /* Ocupar toda la pantalla con margen cero */
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+
+  /* Añadir el relleno deseado */
+  padding: 0;
+
+  /* Otras propiedades CSS si las necesitas */
+}
+/* styles.css (tu archivo CSS personalizado) */
+.bg_v {
+  display: grid;
+  place-items: center; /* Centrado horizontal y vertical */
+  color: #636363;
+}
+
+
+.body {
+  /* Establecer el ancho y alto al 100% para ocupar toda la pantalla */
+  max-width: 90%; /*800px*/
+  
+  margin: 0 auto;
+  padding: 0rem;
+
+  background-color: #cacaca;
+
+  /* Asegurarse de que el elemento html también ocupe toda la pantalla */
+  overflow: hidden;
+}
+
+
+.body1 {
+  /* Establecer el ancho y alto al 100% para ocupar toda la pantalla */
+  width: 100%;
+  height: 100%;
+
+  /* Eliminar márgenes y relleno para aprovechar todo el espacio */
+  margin: 0;
+  padding: 0;
+  background-color: #636363;
+
+  /* Asegurarse de que el elemento html también ocupe toda la pantalla */
+  overflow: hidden;
+}
