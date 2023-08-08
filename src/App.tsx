@@ -74,6 +74,9 @@ function App () {
   const handleClipboard = () => {
     navigator.clipboard.writeText(result).catch(() => {})
   }
+  const handleClipboard2 = () => {
+    navigator.clipboard.writeText(result2).catch(() => {})
+  }
 
   const handleSpeak = () => {
     const utterance = new SpeechSynthesisUtterance(result)
@@ -82,7 +85,12 @@ function App () {
     speechSynthesis.speak(utterance)
   }
 
-
+  const handleSpeak2 = () => {
+    const utterance = new SpeechSynthesisUtterance(result2)
+    utterance.lang = VOICE_FOR_LANGUAGE[toLanguage2]
+    utterance.rate = 0.9
+    speechSynthesis.speak(utterance)
+  }
 
   return (
     <div>
@@ -195,12 +203,12 @@ function App () {
             <div style={{ position: 'absolute', left: 0, bottom: 0, display: 'flex' }}>
             <Button
               variant='link'
-              onClick={handleClipboard}>
+              onClick={handleClipboard2}>
                 <ClipboardIcon />
             </Button>
             <Button
               variant='link'
-              onClick={handleSpeak}>
+              onClick={handleSpeak2}>
                 <SpeakerIcon />
             </Button>
             </div>
