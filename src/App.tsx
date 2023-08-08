@@ -65,6 +65,7 @@ function App () {
         
       })
       .catch(() => { 
+        
       
         setResult2('Error')  
       })
