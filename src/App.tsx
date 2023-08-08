@@ -4,13 +4,13 @@ import { useDebounce } from './hooks/useDebounce'
 import { Container, Row, Col, Button, Stack } from 'react-bootstrap'
 
 import './App.css'
-import { ArrowsIcon, ClipboardIcon, SpeakerIcon,MicrofonoIcon, CerrarIcon } from './components/Icons'
+import { ArrowsIcon, ClipboardIcon, SpeakerIcon,MicrofonoIcon, CerrarIcon,ApagMicrofonoIcon } from './components/Icons'
 import { LanguageSelector } from './components/LanguageSelector'
 import { TextArea } from './components/TextArea'
-import { MyComponent } from './components/traductorgoogle'
+import {ListenVoice,ListenVoiceWrite} from './components/traductorgoogle'
 import { AUTO_LANGUAGE, VOICE_FOR_LANGUAGE } from './constants'
 import { useStore } from './hooks/useStore'
-import { translate } from './services/translate'
+import { translate,translate2 } from './services/translate'
 import { SectionType } from './types.d'
 
 import {Confetti} from './components/confetti'
@@ -26,20 +26,25 @@ function App () {
   const {
     loading,
     fromLanguage,
-    toLanguage,
+    toLanguage,    
+    toLanguage2,
     fromText,
     result,
+    result2,
     interchangeLanguages,
     setFromLanguage,
     setToLanguage,
     setFromText,
     setResult,
+    setResult2,
     cerrarFromText,
+    setbotLanguage,
+    setStopVoice,
     setVoice
   } = useStore()
 
   const debouncedFromText = useDebounce(fromText, 300)
-
+  
   useEffect(() => {
     if (debouncedFromText === '') return
 
@@ -51,8 +56,20 @@ function App () {
       })
       .catch(() => { 
       
-        setResult('Error') })
-  }, [debouncedFromText, fromLanguage, toLanguage])
+        setResult('Error') 
+      })
+      translate2({ fromLanguage, toLanguage2, text: debouncedFromText })
+      .then(result2 => {
+        if (result2 == null) return        
+        setResult2(result2)
+        
+      })
+      .catch(() => { 
+      
+        setResult2('Error')  
+      })
+        
+  }, [debouncedFromText, fromLanguage, toLanguage,toLanguage2])
 
   const handleClipboard = () => {
     navigator.clipboard.writeText(result).catch(() => {})
@@ -65,34 +82,16 @@ function App () {
     speechSynthesis.speak(utterance)
   }
 
-  const handleListen = () => { 
-    return  (<MyComponent/>)
-
-  }
-
-
-  
 
 
   return (
-    <body className='body1'>
-
-      
-
-    
-
-    
+    <div>
       <Container fluid className='body ' >
       <h2 className='bg_v' >Translate</h2>
-      
-      
-
       <Row>
         <Col xs='auto' >
           <ImageList/>
-        
-          <Button variant='link' disabled={fromLanguage === AUTO_LANGUAGE} onClick={interchangeLanguages}>
-          
+                  <Button variant='link' disabled={fromLanguage === AUTO_LANGUAGE} onClick={interchangeLanguages}>          
           </Button>
         </Col>
 
@@ -103,8 +102,7 @@ function App () {
               value={fromLanguage}
               onChange={setFromLanguage}
             />           
-            <div className='conten-flex' style={{ position: 'relative' }}>
-            
+            <div className='conten-flex' style={{ position: 'relative' }}>            
             <div style={{ position: 'absolute', top: 0, right: 0, display: 'flex', flexDirection: 'row-reverse' }}>
             {fromText !== '' && (
               <Button
@@ -113,32 +111,31 @@ function App () {
                 <CerrarIcon />
             </Button>
             )}
-
-            
-            
-
             </div>
             <div style={{ position: 'absolute', left: 0, bottom: 0, display: 'flex' }}>
             <Button
               variant='link'
-              onClick={() => handleListen()}>
+              onClick={() => {ListenVoice()}}
+              >
                 <MicrofonoIcon 
                 /> 
-            </Button>
-            
-
+            </Button>   
+            <Button
+              variant='link'
+              onClick={() => {ListenVoiceWrite()}}
+              >
+                <ApagMicrofonoIcon 
+                /> 
+            </Button>          
             </div>
             <TextArea 
               type={SectionType.From}
               value={fromText}
               onChange={setFromText}
             />
-
             </div>
           </Stack>
-
         </Col>
-
         <Col xs='auto' >
           <Button variant='link' disabled={fromLanguage === AUTO_LANGUAGE} onClick={interchangeLanguages}>
             <ArrowsIcon />
@@ -178,13 +175,46 @@ function App () {
             </div>
           </Stack>
         </Col>
+        <Col>
+          <Stack  gap={2}>
+            <LanguageSelector
+              type={SectionType.To}
+              value={toLanguage2}
+              onChange={setToLanguage}
+            />
+            <div style={{ position: 'relative' }}>
+            
+            <TextArea
+              loading={loading}
+              type={SectionType.To}
+              value={result2}
+              onChange={setResult2}
+            />
+            {(result2 === 'Error') && < Emotic />}
+            
+            <div style={{ position: 'absolute', left: 0, bottom: 0, display: 'flex' }}>
+            <Button
+              variant='link'
+              onClick={handleClipboard}>
+                <ClipboardIcon />
+            </Button>
+            <Button
+              variant='link'
+              onClick={handleSpeak}>
+                <SpeakerIcon />
+            </Button>
+            </div>
+
+            </div>
+          </Stack>
+        </Col>
         <Col xs='auto' >
         <ImageList/>
         </Col>
       </Row>
     </Container>
     {(result !== '' && result !== 'Error') && <Confetti />}
-    </body>
+    </div>
   )
 }
 

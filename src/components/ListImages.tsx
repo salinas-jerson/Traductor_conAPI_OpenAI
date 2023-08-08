@@ -1,19 +1,47 @@
 import { useState } from 'react';
+import { LanguageSelector } from '../components/LanguageSelector'
+import { FromLanguage, Language, SectionType } from '../types.d'
+import {  SUPPORTED_LANGUAGES } from '../constants'
+import { useStore } from '../hooks/useStore'
 export const ImageList = () => {
     const imageUrls = [
         
       'images/Alemán.png',
-      'images/Aymara.png',
+      'images/Aimara.png',
       'images/Portugués.png',
       'images/Chino.png',
-      'images/Espanol.png',
+      'images/Español.png',
       'images/Francés.png',
       'images/Guaraní.png',
       'images/English.png',
       'images/Ruso.png',
     ];
-    const handleImageClick = (url: string) => {
+    const {
+      setbotLanguage
+    } = useStore()
+    type SupportedLanguages = {
+      [key: string]: string;
+    };
+    
+    const SUPPORTED_LANGUAGES0: SupportedLanguages = {
+      en: 'English',
+      es: 'Español',
+      po: 'Potugués',
+      fr: 'Francés',
+      gn: 'Guaraní',
+      qu: 'Quechua',
+      ay: 'Aimara',
+      ch: 'Chino',
+      ru: 'Ruso',
+      de: 'Alemán',
+    };
+    const handleImageClick = (url: string,title: Language) => {
         // Aquí puedes agregar la lógica que se ejecutará cuando se haga clic en una imagen
+        <LanguageSelector 
+              type={SectionType.To}
+              value={title}
+              onChange={setbotLanguage}
+            />  
         console.log(`Se hizo clic en la imagen con URL: ${url}`);
       };
       const [hoveredImage, setHoveredImage] = useState<string | null>(null);
@@ -23,13 +51,23 @@ export const ImageList = () => {
         const fileNameWithoutExtension = fileNameWithExtension.substring(0, fileNameWithExtension.lastIndexOf('.'));
         return fileNameWithoutExtension;
       };
+      const keyTitle = (title: string) => {
+        const foundKey = Object.entries(SUPPORTED_LANGUAGES).map(([key, literal]) => (
+          <option key={key} value={key}>
+            {literal}
+          </option>
+        ))
+         Object.keys(SUPPORTED_LANGUAGES).find((key) => SUPPORTED_LANGUAGES0[key] === title);
+  
+        return foundKey;
+      }
 
     return (
         <div>
         {imageUrls.map((url, index) => (
           <button
             key={index}
-            onClick={() => handleImageClick(url)}
+            
             onMouseEnter={() => setHoveredImage(url)}
             onMouseLeave={() => setHoveredImage(null)}
             style={{
@@ -43,6 +81,7 @@ export const ImageList = () => {
                 overflow: 'hidden'
             }}
             title={`Traducción - ${getFileNameWithoutExtension(url)}`} // Agregamos el título personalizado
+            onClick={() => handleImageClick(url,keyTitle(title))}
           >
             <img
               src={url}

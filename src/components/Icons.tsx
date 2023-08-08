@@ -13,6 +13,12 @@ export const SpeakerIcon = () => (
 export const MicrofonoIcon = () => (
   <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  width="24" height="24"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"></path></svg>
 )
+export const ApagMicrofonoIcon = () => (
+  <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <path d="M11 14V5c0-1.66 1.34-3 3-3s3 1.34 3 3v9c0 1.66-1.34 3-3 3s-3-1.34-3-3zm5.3-3c0 3-2.54 5.1-5.3 5.1S5.7 14 5.7 11H4c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z" fill="#999999" />
+</svg>
+
+)
 
 export const CerrarIcon = () => (
   <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" ><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>

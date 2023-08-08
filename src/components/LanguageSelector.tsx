@@ -1,14 +1,14 @@
 import { Form } from 'react-bootstrap'
 import { AUTO_LANGUAGE, SUPPORTED_LANGUAGES } from '../constants'
-import { SectionType, type FromLanguage, type Language } from '../types.d'
+import { SectionType, type FromLanguage, type Language, type SolLanguage } from '../types.d'
 import '../App.css'
 type Props =
   | { type: SectionType.From, value: FromLanguage, onChange: (language: FromLanguage) => void }
-  | { type: SectionType.To, value: Language, onChange: (language: Language) => void }
+  | { type: SectionType.To, value: Language, onChange: (language: Language,language2 :SolLanguage) => void }
 
 export const LanguageSelector = ({ onChange, type, value }: Props) => {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    onChange(event.target.value as Language)
+    onChange(event.target.value as Language, event.target.value as SolLanguage)
   }
 
   return (

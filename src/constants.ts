@@ -11,6 +11,10 @@ export const SUPPORTED_LANGUAGES = {
   de: 'Alemán'
 }
 
+export const SUPPORTED_LANGUAGES_p= {
+  
+  po: 'Potugués'
+}
 export const VOICE_FOR_LANGUAGE = {
   en: 'en-GB',
   es: 'es-MX',

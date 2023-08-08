@@ -1,17 +1,19 @@
 import { useReducer } from 'react'
 import { AUTO_LANGUAGE } from '../constants'
-import { type FromLanguage, type Language, type Action, type State } from '../types'
-import {ListenVoice} from '../components/traductorgoogle'
+import { type FromLanguage, type Language, type SolLanguage, type Action, type State } from '../types'
+
 
 // 1. Create a initialState
 const initialState: State = {
   fromLanguage: 'auto',
   toLanguage: 'en',
+  toLanguage2: 'po',
+  botLanguage:'',
   fromText: '',
   result: '',
+  result2:'',
   loading: false
 }
-
 // 2. Create a reducer
 function reducer (state: State, action: Action) {
   const { type } = action
@@ -28,6 +30,7 @@ function reducer (state: State, action: Action) {
       loading,
       fromText: state.result,
       result: '',
+      result2: '',
       fromLanguage: state.toLanguage,
       toLanguage: state.fromLanguage
     }
@@ -37,10 +40,10 @@ function reducer (state: State, action: Action) {
       ...state,      
       fromText: '',
       result: '',
+      result2: '',
       loading: false
     }
   }
-
   if (type === 'SET_FROM_LANGUAGE') {
     if (state.fromLanguage === action.payload) return state
 
@@ -50,10 +53,10 @@ function reducer (state: State, action: Action) {
       ...state,
       fromLanguage: action.payload,
       result: '',
+      result2: '',
       loading
     }
   }
-
   if (type === 'SET_TO_LANGUAGE') {
     if (state.toLanguage === action.payload) return state
     const loading = state.fromText !== ''
@@ -73,7 +76,8 @@ function reducer (state: State, action: Action) {
       ...state,
       loading,
       fromText: action.payload,
-      result: ''
+      result: '',
+      result2: ''
     }
   }
   
@@ -82,6 +86,13 @@ function reducer (state: State, action: Action) {
       ...state,
       loading: false,
       result: action.payload
+    }
+  }
+  if (type === 'SET_RESULT2') {
+    return {
+      ...state,
+      loading: false,
+      result2 : action.payload
     }
   }
   if (type === 'SET_RESULT_VOICE') {
@@ -93,7 +104,28 @@ function reducer (state: State, action: Action) {
     return {
       ...state,
       loading,
-      fromText: 'ListenVoice',
+      fromText: 'xdxd',
+      result: ''
+    }
+  }
+  if (type === 'SET_Stop_VOICE') {
+    // lógica del estado dentro del reducer
+    // porque lo evitamos en los componentes
+
+    const loading = state.fromText !== ''
+
+    return {
+      ...state,
+      loading,
+      fromText: action.payload,
+      result: ''
+    }
+  }
+
+  if (type === 'SET_BOTTON_LANGUAGE') {
+    return {
+      ...state,
+      fromLanguage: action.payload,
       result: ''
     }
   }
@@ -106,8 +138,11 @@ export function useStore () {
   const [{
     fromLanguage,
     toLanguage,
+    toLanguage2,
+    botLanguage,
     fromText,
     result,
+    result2,
     loading
   }, dispatch] = useReducer(reducer, initialState)
 
@@ -123,7 +158,7 @@ export function useStore () {
   }
 
   const setToLanguage = (payload: Language) => {
-    dispatch({ type: 'SET_TO_LANGUAGE', payload })
+    dispatch({ type: 'SET_TO_LANGUAGE',payload })
   }
 
   const setFromText = (payload: string) => {
@@ -133,24 +168,38 @@ export function useStore () {
   const setResult = (payload: string) => {
     dispatch({ type: 'SET_RESULT', payload })
   }
+  const setResult2 = (payload: string) => {
+    dispatch({ type: 'SET_RESULT2', payload })
+  }
+  const setbotLanguage = (payload: Language) => {
+    dispatch({ type: 'SET_BOTTON_LANGUAGE', payload })
+  }
   const setVoice = () => {
     dispatch({ type: 'SET_RESULT_VOICE' })
   }
-  
+  const setStopVoice = (payload: string) => {
+    dispatch({ type: 'SET_Stop_VOICE', payload })
+  }
 
 
   return {
     fromLanguage,
     toLanguage,
+    toLanguage2,
+    botLanguage,
     fromText,
     result,
+    result2,
     loading,
     interchangeLanguages,
     setFromLanguage,
     setToLanguage,
     setFromText,
+    setbotLanguage,
     setVoice,
+    setStopVoice,
     cerrarFromText,
-    setResult
+    setResult,
+    setResult2
   }
 }
