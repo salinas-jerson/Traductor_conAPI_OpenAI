@@ -1,27 +1,45 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Crear un proyecto Vite
 
-Currently, two official plugins are available:
+<button disabled>Copiar</button>
+<pre>
+<code>npm create vite@latest</code>
+</pre>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Elegir React y TypeScript
 
-## Expanding the ESLint configuration
+<button disabled>Copiar</button>
+<pre>
+<code># En el prompt, selecciona las siguientes opciones:
+# Project name: nombre
+# Select a framework: React
+# Select a variant: TypeScript + SxC</code>
+</pre>
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Instalar dependencias en el editor de terminal
 
-- Configure the top-level `parserOptions` property like this:
+<button disabled>Copiar</button>
+<pre>
+<code>npm i
+npx eslint --init</code>
+</pre>
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+### Instalar React-Bootstrap y Bootstrap
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+<button disabled>Copiar</button>
+<pre>
+<code>npm i react-bootstrap bootstrap -E</code>
+</pre>
+
+### Clona el repositorio y reemplaza los archivos en la parpeta
+
+<code>git clone https://github.com/.../.git</code>
+
+
+### Levantar el servidor
+
+<button disabled>Copiar</button>
+<pre>
+<code>npm run dev</code>
+</pre>
